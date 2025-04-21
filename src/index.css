@@ -1,0 +1,228 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Arial', sans-serif, system-ui;
+  background-color: #121212;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  min-height: 500px;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  justify-content: center;
+  height: 100%;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 8px;
+  width: 100%;
+  max-width: 140px;
+  padding-block: 10px;
+}
+
+.card {
+  aspect-ratio: 1/1;
+  background-color: #1E1E1E;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  border: 1px solid #333333;
+  margin: 0;
+  padding: 0;
+}
+
+.card:hover {
+  transform: scale(1.08) rotate(5deg);
+}
+
+.card:nth-child(2n):hover {
+  transform: scale(1.08) rotate(-5deg);
+}
+
+.card:nth-child(3n):hover {
+  transform: scale(1.08) rotate(10deg);
+}
+
+.card:nth-child(4n):hover {
+  transform: scale(1.08) rotate(-10deg);
+}
+
+.card-back {
+  width: 90%;
+  height: 90%;
+  background-color: #2D2D2D;
+  border-radius: 3px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+@keyframes button-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Card highlight styles */
+.card.highlight {
+  border-color: #6e1992;
+  transform: scale(1.08);
+}
+
+.card-back.highlight {
+  background-color: #6e1992;
+}
+
+/* Error state */
+.card.error {
+  border-color: #ff3333;
+}
+
+/* Winner state */
+.card.winner {
+  animation: winner-pulse 1.5s infinite alternate;
+}
+
+@keyframes winner-pulse {
+  0% {
+    border-color: #6e1992;
+    transform: scale(1);
+  }
+  100% {
+    border-color: #23d5ab;
+    transform: scale(1.1);
+  }
+}
+
+.action-button {
+  background-color: #6e1992;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 70px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.action-button:hover {
+  background-color: #9C27B0;
+}
+
+.action-button.attention {
+  animation: button-pulse 1.5s ease;
+  box-shadow: 0 0 12px rgba(110, 25, 146, 0.8);
+}
+
+button.apply {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  border: 1px transparent;
+  animation: gradient 4s ease-in-out infinite;
+  color: white;
+  font-family: Arial, sans-serif;
+  transition: all 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  --glow: 0 0 8px rgba(35, 166, 213, 0.7);
+  width: 150px; /* Make apply button wider for the longer text */
+}
+
+button.apply:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(var(--glow));
+}
+
+#controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@keyframes hover-simulation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 8px rgba(35, 166, 213, 0.7));
+  }
+  33% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 8px rgba(231, 60, 126, 0.7));
+  }
+  66% {
+    background-position: 100% 100%;
+    filter: drop-shadow(0 0 8px rgba(238, 119, 82, 0.7));
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 8px rgba(35, 166, 213, 0.7));
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media screen and (min-width: 501px) {
+  .action-button {
+    padding: 12px 18px;
+    width: 100px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+  
+  button.apply {
+    width: 180px;
+  }
+  
+  #controls {
+    gap: 16px;
+    margin-top: 20px;
+  }
+  
+  .memory-grid {
+    max-width: 200px;
+    grid-gap: 12px;
+  }
+  
+  img[alt="Memory Game Logo"] {
+    width: 80px;
+    height: 80px;
+  }
+}

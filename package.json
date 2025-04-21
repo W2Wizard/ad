@@ -1,0 +1,17 @@
+{
+  "name": "codam-interad",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+	"author": "W2Wizard",
+	"scripts": {
+		"build": "bun build ./src/index.html --minify --outdir=dist",
+		"build:node": "npx bun build ./src/index.html --minify --outdir=dist"
+	}
+}
