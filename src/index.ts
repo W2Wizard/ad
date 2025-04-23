@@ -3,8 +3,8 @@
 // See README in the root project for more information.
 // ============================================================================
 
-const C_MAX_SEQUENCE = 2;
-const C_MIN_SEQUENCE = 1;
+const C_MAX_SEQUENCE = 6;
+const C_MIN_SEQUENCE = 3;
 /** Show a new sequence every N seconds */
 const PREVIEW_INTERVAL = 5000;
 /** How long to show the sequence for */
