@@ -39,7 +39,7 @@ class MemoryGame {
 		this.playButton = document.querySelector(".action-button:not(.apply)")!;
 		this.applyButton = document.querySelector(".action-button.apply")!;
 
-		this.applyButton.style.display = "none";
+		// this.applyButton.style.display = "none";
 		this.CARDS.forEach((card, i) => {
 			card.addEventListener("click", () => this.handleCardClick(i));
 		});
@@ -92,8 +92,6 @@ class MemoryGame {
 	/** Previews the current sequence by highlighting cards in order */
 	private previewSequence(): void {
 		this.resetCards();
-
-		// Preview each card in sequence with delay
 		this.desiredSequence.forEach((cardIndex, i) => {
 			this.previewTimeout = window.setTimeout(() => {
 				this.highlightCard(cardIndex);

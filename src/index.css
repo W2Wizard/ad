@@ -1,12 +1,15 @@
 body,
 html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Arial', sans-serif, system-ui;
-  background-color: #121212;
-  color: #ffffff;
-  overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif, system-ui;
+    background-color: #121212;
+    background-image: url('../assets/bg.webp');
+    background-repeat: repeat;
+    background-size: 256px;
+    color: #ffffff;
+    overflow: hidden;
 }
 
 .container {
@@ -145,7 +148,6 @@ button.apply {
   font-family: Arial, sans-serif;
   transition: all 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
   --glow: 0 0 8px rgba(35, 166, 213, 0.7);
-  width: 150px; /* Make apply button wider for the longer text */
 }
 
 button.apply:hover {
@@ -206,21 +208,18 @@ button.apply:hover {
     font-size: 1rem;
     border-radius: 10px;
   }
-  
-  button.apply {
-    width: 180px;
-  }
-  
+
+
   #controls {
     gap: 16px;
     margin-top: 20px;
   }
-  
+
   .memory-grid {
     max-width: 200px;
     grid-gap: 12px;
   }
-  
+
   img[alt="Memory Game Logo"] {
     width: 80px;
     height: 80px;
