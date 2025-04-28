@@ -1,158 +1,272 @@
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
+:root {
+  /* Colors */
+  --color-bg-primary: #121212;
+  --color-bg-secondary: rgb(49, 48, 49);
+  --color-text-primary: #fff;
+  --color-text-secondary: #000;
+  --color-button: #606060;
+  --color-card: #1e1e1e;
+  --color-card-inner: #2d2d2d;
+  --color-card-border: #333;
+  --color-card-border-hover: #555;
+  --color-win: #0a0;
+  --color-win-light: #2b2;
+  --color-error: #a00;
+  --color-error-light: #b22;
+
+  /* Shadows */
+  --shadow-pixel: 8px 8px 0 #000;
+  --shadow-card: 4px 4px 0 #000;
+  --shadow-card-hover: 4px 4px 0 #111;
+  --shadow-panel: inset 0 0 3px #000, 0 -2px 2px -1px #000,
+    -2px 0 2px -2px #28221f, 2px 0 2px -2px #28221f, 0 3px 3px -3px #8f8c8b,
+    0 2px 2px -2px #8f8c8b, 0 1px 1px -1px #8f8c8b;
+  --glow-blue: 0 0 8px rgba(35, 166, 213, 0.7);
+}
+
+/* Base & Layout */
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  font-family: "VT323", "Courier New", monospace; /* More pixelated font */
-  background-color: #121212;
-  background-image: url("../../assets/bg.webp");
-  background-repeat: repeat;
+  height: 100vh;
+  font-family: "VT323", monospace;
+  background: var(--color-bg-primary) url("../../assets/bg.webp") repeat;
   background-size: 512px;
-  color: #ffffff;
+  color: var(--color-text-primary);
   overflow: hidden;
 }
 
-.center {
+.game-container {
   display: grid;
   place-items: center;
   height: 100%;
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
-.grid {
+.game-box {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+.game-panel {
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-bg-secondary);
+  box-shadow: var(--shadow-panel);
+  image-rendering: pixelated;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.game-logo {
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Grid and Cards */
+.game-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 8px;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
-.wrap {
-  padding: 1rem;
-  border-radius: 4px; /* Sharp corners for pixel art */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 8px 8px 0 #000; /* Blocky shadow */
-  image-rendering: pixelated;
-  background-color: rgb(49, 48, 49);
-  box-shadow: inset 0 0 3px 0 #000, 0 -2px 2px -1px #000,
-    -2px 0 2px -2px #28221f, -2px 0 2px -2px #28221f, 2px 0 2px -2px #28221f,
-    2px 0 2px -2px #28221f, 0 3px 3px -3px #8f8c8b, 0 2px 2px -2px #8f8c8b,
-    0 1px 1px -1px #8f8c8b;
-}
-
-button {
-  background-color: #606060;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 0; /* Square corners */
-  width: 70px;
-  font-weight: bold;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  box-shadow: inset 0 0 3px 0 #000, 0 -2px 2px -1px #000,
-    -2px 0 2px -2px #28221f, -2px 0 2px -2px #28221f, 2px 0 2px -2px #28221f,
-    2px 0 2px -2px #28221f, 0 3px 3px -3px #8f8c8b, 0 2px 2px -2px #8f8c8b,
-    0 1px 1px -1px #8f8c8b;
-}
-
-.card {
+.game-card {
   aspect-ratio: 1/1;
-  background-color: #1e1e1e;
-  border-radius: 0;
+  width: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.1s steps(2), border-color 0.1s steps(1); /* More stepped */
-  border: 2px solid #333333;
+  background-color: var(--color-card);
+  border: 2px solid var(--color-card-border);
+  box-shadow: var(--shadow-card);
+  border-radius: 0;
   margin: 0;
-  width: 64px;
   padding: 0;
   image-rendering: pixelated;
-  box-shadow: 4px 4px 0 #000; /* Sharper shadow */
-  transform-origin: center center;
+  transform-origin: center;
+  transition: transform 0.1s steps(2), border-color 0.1s steps(1);
 
   &::after {
     content: "";
     width: 54px;
     height: 54px;
-    background-color: #2d2d2d;
-    border-radius: 0;
+    background-color: var(--color-card-inner);
     box-shadow: inset 2px 2px 0 #444;
   }
 
   &:hover {
-    border-color: #555;
-    box-shadow: 4px 4px 0 #111;
-  }
-
-  &:hover {
+    border-color: var(--color-card-border-hover);
+    box-shadow: var(--shadow-card-hover);
     transform: scale(1.04) rotate(5deg);
   }
 
   &:nth-child(2n):hover {
     transform: scale(1.04) rotate(-5deg);
   }
-
   &:nth-child(3n):hover {
     transform: scale(1.04) rotate(10deg);
   }
-
   &:nth-child(4n):hover {
     transform: scale(1.04) rotate(-10deg);
   }
-}
 
-/*/= Apply =/*/
-
-#controls {
-  padding-top: 1rem;
-
-  & > button {
-    font-size: 1.25em;
-    font-family: "VT323";
-
-    box-shadow: rgb(0, 0, 0) 8px 0px 4px -8px inset,
-      rgb(0, 0, 0) -8px 0px 4px -8px inset,
-      rgb(227, 227, 227) 0px 10px 2px -8px inset,
-      rgb(40, 40, 40) 0px 10px 2px -8px inset,
-      rgb(0, 0, 0) 0px -9px 2px -8px inset, rgb(0, 0, 0) 0px 0px 4px 0px;
-
-    &#play:hover {
-      color: rgb(0, 0, 0);
-      text-decoration: none;
-      outline: 0px;
-      box-shadow: rgb(0, 0, 0) 8px 0px 4px -8px inset,
-        rgb(0, 0, 0) -8px 0px 4px -8px inset,
-        rgb(255, 255, 255) 0px 9px 2px -8px inset,
-        rgb(0, 0, 0) 0px 8px 4px -8px inset,
-        rgb(0, 0, 0) 0px -8px 4px -8px inset,
-        rgb(67, 36, 0) 0px -9px 2px -8px inset, rgb(0, 0, 0) 0px 0px 4px 0px,
-        rgb(249, 180, 75) 0px 0px 4px 2px inset;
-      background-color: rgb(227, 152, 39);
-      filter: drop-shadow(rgb(249, 180, 75) 0px 0px 2px);
-    }
+  &.highlight {
+    animation: pixel-flash 0.5s steps(2) 1;
+  }
+  &.win {
+    border-color: var(--color-win);
+  }
+  &.error {
+    border-color: var(--color-error);
   }
 }
 
-button.apply {
+/* Controls */
+.game-controls {
+  padding-top: 1rem;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.game-button {
+  background-color: var(--color-button);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  width: 70px;
+  font-family: "VT323";
+  font-size: 1.25em;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: #000 8px 0 4px -8px inset, #000 -8px 0 4px -8px inset,
+    #e3e3e3 0 10px 2px -8px inset, #282828 0 10px 2px -8px inset,
+    #000 0 -9px 2px -8px inset, #000 0 0 4px 0;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(50%);
+    pointer-events: none;
+  }
+
+  &.game-button--error {
+    background-color: var(--color-error);
+
+    &:hover {
+      background-color: var(--color-error-light);
+    }
+  }
+
+  &.game-button--winner {
+    background-color: var(--color-win);
+
+    &:hover {
+      background-color: var(--color-win-light);
+    }
+  }
+
+  &.game-button--play:hover {
+    color: #000;
+    box-shadow: #000 8px 0 4px -8px inset, #000 -8px 0 4px -8px inset,
+      #fff 0 9px 2px -8px inset, #000 0 8px 4px -8px inset,
+      #000 0 -8px 4px -8px inset, #432400 0 -9px 2px -8px inset, #000 0 0 4px 0,
+      #f9b44b 0 0 4px 2px inset;
+    background-color: #e39827;
+    filter: drop-shadow(#f9b44b 0 0 2px);
+  }
+}
+
+.game-button--apply {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
-  animation: gradient 4s steps(8) infinite; /* Stepped animation for pixelated effect */
-  color: white;
+  animation: gradient 4s steps(8) infinite;
+  text-shadow: 2px 2px 0 #000;
   transition: all 250ms steps(4);
-  --glow: 0 0 8px rgba(35, 166, 213, 0.7);
-  text-shadow: 2px 2px 0 #000; /* Pixel text shadow */
+
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  background-position: 0% 50%;
+  animation: gradient 4s steps(8) infinite;
 
   &:hover {
     transform: scale(1.05);
-    filter: drop-shadow(var(--glow));
+    filter: drop-shadow(var(--glow-blue));
   }
 }
 
+/* Character Section */
+.character-section {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  margin-bottom: 1px;
+  max-width: 100%;
+}
+
+.character-sprite {
+  width: 48px;
+  height: 96px;
+  background: url("../../assets/alex.webp") 0 0 no-repeat;
+  background-size: 432px 96px;
+  animation: wave 2s steps(9) infinite;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+.character-speech {
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-left: 15px;
+  position: relative;
+  max-width: 150px;
+  color: var(--color-text-secondary);
+  font-family: "VT323", monospace;
+  font-size: 16px;
+  box-shadow: 2px 2px 0 #000;
+  image-rendering: pixelated;
+  flex-grow: 1;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    border-style: solid;
+  }
+
+  &:before {
+    left: -10px;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent #333 transparent transparent;
+  }
+
+  &:after {
+    left: -7px;
+    top: 16px;
+    border-width: 9px 9px 9px 0;
+    border-color: transparent white transparent transparent;
+  }
+}
+
+/* Animations */
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -172,11 +286,6 @@ button.apply {
   }
 }
 
-/* Add highlight state */
-.highlight {
-  animation: pixel-flash 0.5s steps(2) 1;
-}
-
 @keyframes pixel-flash {
   0% {
     transform: scale(1);
@@ -186,5 +295,73 @@ button.apply {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes wave {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -432px 0;
+  }
+}
+
+/* Animation Disabling */
+.disable-animations > * {
+  animation: none !important;
+  transition: none !important;
+  animation-play-state: paused !important;
+}
+
+/* Media Queries */
+@media screen and (max-width: 260px) {
+  .game-panel,
+  .game-container {
+    padding: 4px;
+  }
+  .game-grid {
+    grid-gap: 4px;
+  }
+  .game-controls {
+    padding-top: 6px;
+    gap: 6px;
+  }
+
+  .character-speech {
+    font-size: 12px;
+    padding: 6px 8px;
+    margin-left: 8px;
+    max-width: 80px;
+    image-rendering: optimizeQuality;
+  }
+
+  .game-card {
+    width: 40px;
+
+    &::after {
+      width: 34px;
+      height: 34px;
+    }
+  }
+
+  .game-button {
+    padding: 6px 8px;
+    font-size: 1rem;
+  }
+
+  .character-sprite {
+    width: 32px;
+    height: 64px;
+    background-size: 288px 64px;
+  }
+
+  @keyframes wave {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -288px 0;
+    }
   }
 }

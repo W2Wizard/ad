@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,38 +7,39 @@
     <title>Codam | Ad</title>
     <link rel="stylesheet" href="index.css">
     <script src="index.ts" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="center">
-        <div class="wrap">
-            <img src="../../assets/logo.webp" alt="Memory Game Logo" width="64" height="64" loading="eager">
-            <div class="grid">
-                <button class="card">
-                </button>
-                <button class="card">
-                </button>
-                <button class="card">
-                </button>
-                <button class="card">
-                </button>
-                <button class="card">
-                </button>
-                <button class="card">
-                </button>
-                <button class="card">
-                </button>
-                <button class="card" a>
-                </button>
-                <button class="card">
-                </button>
+    <main class="game-container">
+        <section class="game-box">
+            <div class="character-section">
+                <div class="character-sprite" id="animated-character"></div>
+                <div class="character-speech">Help me solve this puzzle to join codam!</div>
             </div>
-            <div id="controls">
-                <button id="play">Play</button>
-                <button id="apply" class="apply">Apply</button>
+            <div class="game-panel">
+                <img src="../../assets/logo.webp" alt="Memory Game Logo" width="64" height="64" loading="eager"
+                    class="game-logo">
+                <div class="game-grid">
+                    <button class="game-card"></button>
+                    <button class="game-card"></button>
+                    <button class="game-card"></button>
+                    <button class="game-card"></button>
+                    <button class="game-card"></button>
+                    <button class="game-card"></button>
+                    <button class="game-card"></button>
+                    <button class="game-card"></button>
+                    <button class="game-card"></button>
+                </div>
+                <div class="game-controls">
+                    <button class="game-button game-button--play" id="play">Play</button>
+                    <button class="game-button game-button--apply" id="apply">Apply</button>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 </body>
 
 </html>
