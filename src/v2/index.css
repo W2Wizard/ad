@@ -314,54 +314,55 @@ body {
   animation-play-state: paused !important;
 }
 
-/* Media Queries */
-@media screen and (max-width: 260px) {
-  .game-panel,
-  .game-container {
-    padding: 4px;
-  }
-  .game-grid {
-    grid-gap: 4px;
-  }
-  .game-controls {
-    padding-top: 6px;
-    gap: 6px;
-  }
-
-  .character-speech {
-    font-size: 12px;
-    padding: 6px 8px;
-    margin-left: 8px;
-    max-width: 80px;
-    image-rendering: optimizeQuality;
-  }
-
-  .game-card {
-    width: 40px;
-
-    &::after {
-      width: 34px;
-      height: 34px;
+/* For screens with height less than 530px */
+/* Media Query for small screens (height or width < 300px) */
+@media screen and (max-height: 440px), screen and (max-width: 350px) {
+    .game-panel,
+    .game-container {
+        padding: 4px;
     }
-  }
-
-  .game-button {
-    padding: 6px 8px;
-    font-size: 1rem;
-  }
-
-  .character-sprite {
-    width: 32px;
-    height: 64px;
-    background-size: 288px 64px;
-  }
-
-  @keyframes wave {
-    from {
-      background-position: 0 0;
+    .game-grid {
+        grid-gap: 4px;
     }
-    to {
-      background-position: -288px 0;
+    .game-controls {
+        padding-top: 6px;
+        gap: 6px;
     }
-  }
+
+    .character-speech {
+        font-size: 12px;
+        padding: 6px 8px;
+        margin-left: 8px;
+        max-width: 80px;
+        image-rendering: optimizeQuality;
+    }
+
+    .game-card {
+        width: 40px;
+
+        &::after {
+            width: 34px;
+            height: 34px;
+        }
+    }
+
+    .game-button {
+        padding: 6px 8px;
+        font-size: 1rem;
+    }
+
+    .character-sprite {
+        width: 32px;
+        height: 64px;
+        background-size: 288px 64px;
+    }
+
+    @keyframes wave {
+        from {
+            background-position: 0 0;
+        }
+        to {
+            background-position: -288px 0;
+        }
+    }
 }
