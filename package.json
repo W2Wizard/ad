@@ -11,7 +11,7 @@
   },
 	"author": "W2Wizard",
 	"scripts": {
-		"build": "bun build ./src/index.html --minify --outdir=dist",
-		"build:node": "npx bun build ./src/index.html --minify --outdir=dist"
+		"build": "bun build ./src/v2/index.html --minify --outdir=dist",
+		"build:node": "npx bun build ./src/v2/index.html --minify --outdir=dist"
 	}
 }
