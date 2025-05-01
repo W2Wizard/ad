@@ -3,16 +3,18 @@
 // See README in the root project for more information.
 // ============================================================================
 
-const C_MAX_SEQUENCE = 6;
-const C_MIN_SEQUENCE = 3;
+const C_MAX_SEQUENCE = 4;
+const C_MIN_SEQUENCE = 2;
 /** Show a new sequence every N seconds */
 const PREVIEW_INTERVAL = 5000;
 /** How long to show the sequence for */
 const MAX_AD_DURATION = 30000;
 /** How long to highlight a card */
-const HIGHLIGHT_DURATION = 500;
+const HIGHLIGHT_DURATION = 1000;
 /** How long to wait between highlighting cards in a sequence */
-const SEQUENCE_DELAY = 800;
+const SEQUENCE_DELAY = 1000;
+/** How long to wait before starting the sequence preview after pressing play */
+const SEQUENCE_START_DELAY = 1500;
 
 enum GameState {
   IDLE,
@@ -166,18 +168,25 @@ class MemoryGame {
     this.state = GameState.PREVIEW;
     this.userSequence = [];
 
-    this.speechBubble.textContent = "Help me solve this puzzle to join codam!";
+    // Update speech text immediately
+    this.speechBubble.textContent =
+      "Follow the sequence! Remember what lights up.";
 
     this.resetCards();
-    this.playButton.disabled = true;
-    this.playButton.classList.remove("game-button--error");
-    this.playButton.textContent = "Play";
+    setTimeout(() => {
+      this.playButton.disabled = true;
+      this.playButton.classList.remove("game-button--error");
+      this.playButton.textContent = "Play";
 
-    this.generateSequence();
-    this.previewSequence();
-    const previewDuration =
-      this.desiredSequence.length * SEQUENCE_DELAY + HIGHLIGHT_DURATION;
-    setTimeout(() => (this.state = GameState.PLAYING), previewDuration);
+      this.generateSequence();
+      this.previewSequence();
+
+      const previewDuration =
+        this.desiredSequence.length * SEQUENCE_DELAY + HIGHLIGHT_DURATION;
+      setTimeout(() => {
+        this.state = GameState.PLAYING;
+      }, previewDuration);
+    }, SEQUENCE_START_DELAY);
   }
 
   /** Handles a card click during gameplay */
