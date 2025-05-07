@@ -4,17 +4,17 @@
 // ============================================================================
 
 const C_MAX_SEQUENCE = 4;
-const C_MIN_SEQUENCE = 2;
+const C_MIN_SEQUENCE = 3;
 /** Show a new sequence every N seconds */
 const PREVIEW_INTERVAL = 5000;
 /** How long to show the sequence for */
 const MAX_AD_DURATION = 30000;
 /** How long to highlight a card */
-const HIGHLIGHT_DURATION = 1000;
+const HIGHLIGHT_DURATION = 1300;
 /** How long to wait between highlighting cards in a sequence */
-const SEQUENCE_DELAY = 1000;
+const SEQUENCE_DELAY = 1300;
 /** How long to wait before starting the sequence preview after pressing play */
-const SEQUENCE_START_DELAY = 1500;
+const SEQUENCE_START_DELAY = 1000;
 
 enum GameState {
   IDLE,
@@ -42,8 +42,8 @@ class MemoryGame {
     this.CARDS = document.querySelectorAll(".game-card");
     this.playButton = document.getElementById("play")! as HTMLButtonElement;
     this.applyButton = document.getElementById("apply")! as HTMLButtonElement;
-    this.speechBubble = document.querySelector(
-      ".character-speech"
+    this.speechBubble = document.getElementById(
+      "animated-speech"
     )! as HTMLDivElement;
     this.character = document.getElementById(
       "animated-character"
@@ -105,8 +105,6 @@ class MemoryGame {
       card.style.transition = "none";
       card.style.animation = "none";
     });
-
-    console.log("All animations disabled after 30 seconds as required.");
   }
 
   /** Generates a random sequence of card indexes */
@@ -163,10 +161,11 @@ class MemoryGame {
   }
 
   /** Starts a new game */
-  private startGame(): void {
+  public startGame(): void {
     this.stopIdleAnimation();
     this.state = GameState.PREVIEW;
     this.userSequence = [];
+    this.playButton.disabled = true;
 
     // Update speech text immediately
     this.speechBubble.textContent =
@@ -174,7 +173,6 @@ class MemoryGame {
 
     this.resetCards();
     setTimeout(() => {
-      this.playButton.disabled = true;
       this.playButton.classList.remove("game-button--error");
       this.playButton.textContent = "Play";
 
@@ -182,9 +180,11 @@ class MemoryGame {
       this.previewSequence();
 
       const previewDuration =
-        this.desiredSequence.length * SEQUENCE_DELAY + HIGHLIGHT_DURATION;
+        this.desiredSequence.length * SEQUENCE_DELAY;
       setTimeout(() => {
         this.state = GameState.PLAYING;
+        this.speechBubble.textContent =
+          "Could you remember all that ? Try it out!";
       }, previewDuration);
     }, SEQUENCE_START_DELAY);
   }
@@ -234,4 +234,21 @@ class MemoryGame {
 
 // ============================================================================
 
-window.addEventListener("DOMContentLoaded", () => new MemoryGame());
+window.addEventListener("DOMContentLoaded", () => {
+  const splash = document.querySelector(".splash") as HTMLDivElement;
+  const gameContainer = document.querySelector(
+    ".game-container"
+  ) as HTMLElement;
+  gameContainer.style.pointerEvents = "none";
+  document.querySelectorAll("#start").forEach((button) => {
+    button.addEventListener("click", () => {
+      splash.style.display = "none";
+      gameContainer.style.opacity = "1";
+      gameContainer.style.pointerEvents = "unset";
+
+      document.body.style.backdropFilter = "unset";
+      let game = new MemoryGame();
+      game.startGame();
+    });
+  });
+});
