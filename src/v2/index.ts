@@ -168,8 +168,7 @@ class MemoryGame {
     this.playButton.disabled = true;
 
     // Update speech text immediately
-    this.speechBubble.textContent =
-      "Follow the sequence! Remember what lights up.";
+    this.speechBubble.textContent = "Remember which boxes light up.";
 
     this.resetCards();
     setTimeout(() => {
@@ -179,8 +178,7 @@ class MemoryGame {
       this.generateSequence();
       this.previewSequence();
 
-      const previewDuration =
-        this.desiredSequence.length * SEQUENCE_DELAY;
+      const previewDuration = this.desiredSequence.length * SEQUENCE_DELAY;
       setTimeout(() => {
         this.state = GameState.PLAYING;
         this.speechBubble.textContent =
@@ -225,7 +223,8 @@ class MemoryGame {
   private handleSuccess(): void {
     this.state = GameState.WON;
 
-    this.speechBubble.textContent = "Great job! Click Apply to join Codam!";
+    this.speechBubble.textContent =
+      "Great job 🥳! Click Apply for more info & games!";
     this.playButton.style.display = "none";
     this.applyButton.style.display = "block";
     this.CARDS.forEach((card) => card.classList.add("win"));
